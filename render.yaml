@@ -1,0 +1,40 @@
+services:
+  # Backend API
+  - type: web
+    name: focusflow-api
+    runtime: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: GROQ_API_KEY
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: REDIS_URL
+        fromService:
+          name: focusflow-redis
+          type: redis
+          property: connectionString
+      - key: ALLOWED_ORIGINS
+        value: https://focusflow-frontend.onrender.com
+
+  # Frontend Static Site
+  - type: static
+    name: focusflow-frontend
+    runtime: static
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishDir: dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://focusflow-api.onrender.com
+      - key: VITE_WS_URL
+        value: wss://focusflow-api.onrender.com
+
+databases:
+  - name: focusflow-redis
+    type: redis
+    plan: free

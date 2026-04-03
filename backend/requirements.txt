@@ -1,0 +1,35 @@
+fastapi
+uvicorn[standard]
+websockets
+python-multipart
+httpx
+
+# ML core
+torch
+transformers
+sentence-transformers
+bertopic
+xgboost
+scikit-learn
+numpy
+faiss-cpu
+datasets
+evaluate
+
+# STT
+faster-whisper
+
+# LLM
+ollama
+groq>=0.5.0
+
+# Storage & Queue
+redis
+celery
+
+# Utilities
+slowapi
+sentry-sdk
+python-dotenv
+pydantic
+pydantic-settings
