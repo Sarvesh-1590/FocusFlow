@@ -22,9 +22,9 @@ _model: Optional[WhisperModel] = None
 def load_stt_model() -> WhisperModel:
     global _model
     if _model is None:
-        print("Loading WhisperModel (base.en)...")
+        print("Loading WhisperModel (tiny.en)...")
         # Run on CPU for broad hackathon compatibility, int8 precision
-        _model = WhisperModel("base.en", device="cpu", compute_type="int8")
+        _model = WhisperModel("tiny.en", device="cpu", compute_type="int8")
     return _model
 
 async def transcribe_audio(audio_bytes: bytes, audio_format: str = "webm") -> dict:

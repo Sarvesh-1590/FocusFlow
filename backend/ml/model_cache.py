@@ -12,13 +12,8 @@ from .stt import load_stt_model
 class ModelCache:
     def __init__(self):
         self._lock = threading.Lock()
-        self._cache: Dict[str, Any] = {
-            "stt": load_stt_model(),
-            "embedder": load_embedding_model(),
-            "classifier": load_classifier(),
-            "drift_model": load_drift_model(),
-        }
-        self._last_access: Dict[str, float] = {k: time.time() for k in self._cache}
+        self._cache: Dict[str, Any] = {}
+        self._last_access: Dict[str, float] = {}
         self._ttl = 3600  # 1 hour unused retention
 
     def _check_expire(self):
