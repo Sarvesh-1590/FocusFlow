@@ -38,3 +38,6 @@ services:
   - type: keyvalue
     name: focusflow-redis
     plan: free
+    ipAllowList:
+      - source: 0.0.0.0/0
+        description: Allow all traffic
