@@ -16,7 +16,7 @@ services:
       - key: REDIS_URL
         fromService:
           name: focusflow-redis
-          type: redis
+          type: keyvalue
           property: connectionString
       - key: ALLOWED_ORIGINS
         value: https://focusflow-frontend.onrender.com
@@ -34,6 +34,7 @@ services:
       - key: VITE_WS_URL
         value: wss://focusflow-api.onrender.com
 
-redis:
-  - name: focusflow-redis
+  # Redis (Key Value Store)
+  - type: keyvalue
+    name: focusflow-redis
     plan: free
