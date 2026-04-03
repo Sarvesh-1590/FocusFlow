@@ -18,6 +18,7 @@ evaluate
 
 # STT
 faster-whisper
+imageio-ffmpeg
 
 # LLM
 ollama
