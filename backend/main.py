@@ -1,22 +1,38 @@
+import time
+import os
+
+print(f"--- [STARTUP] Initializing FocusFlow API at {time.ctime()} ---")
+start_time = time.time()
+
 from fastapi import FastAPI, Request, Depends
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.httpsredirect import HTTPSRedirectMiddleware
 from contextlib import asynccontextmanager
-from dotenv import load_dotenv
-import os
+print(f"--- [STARTUP] Core FastAPI imports done in {time.time() - start_time:.2f}s")
 
+now = time.time()
 from slowapi import Limiter
 from slowapi.middleware import SlowAPIMiddleware
 from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
+print(f"--- [STARTUP] SlowAPI imports done in {time.time() - now:.2f}s")
 
+now = time.time()
 import sentry_sdk
 from sentry_sdk.integrations.asgi import SentryAsgiMiddleware
+print(f"--- [STARTUP] Sentry imports done in {time.time() - now:.2f}s")
 
+now = time.time()
 from routers import session, transcript, qa, auth
+print(f"--- [STARTUP] Routers imported in {time.time() - now:.2f}s")
+
+now = time.time()
 from ml.model_cache import ModelCache
+print(f"--- [STARTUP] ModelCache imported in {time.time() - now:.2f}s")
+
 from auth import get_current_user
+from dotenv import load_dotenv
 
 load_dotenv()
 
@@ -27,10 +43,12 @@ limiter = Limiter(key_func=get_remote_address, default_limits=["120/minute", "10
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    print(f"--- [LIFESPAN] Initializing app state at {time.ctime()} ---")
+    now = time.time()
     app.state.model_cache = ModelCache()
-    print("Model cache initialized.")
+    print(f"--- [LIFESPAN] Model cache initialized in {time.time() - now:.2f}s")
     yield
-    print("Shutting down.")
+    print("--- [LIFESPAN] Shutting down. ---")
 
 app = FastAPI(title="FocusFlow API", version="1.0.0", lifespan=lifespan)
 
