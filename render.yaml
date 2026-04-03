@@ -22,12 +22,12 @@ services:
         value: https://focusflow-frontend.onrender.com
 
   # Frontend Static Site
-  - type: static
+  - type: web
     name: focusflow-frontend
     runtime: static
     rootDir: frontend
     buildCommand: npm install && npm run build
-    staticPublishDir: dist
+    staticPublishPath: dist
     envVars:
       - key: VITE_API_URL
         value: https://focusflow-api.onrender.com
