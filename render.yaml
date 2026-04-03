@@ -34,7 +34,6 @@ services:
       - key: VITE_WS_URL
         value: wss://focusflow-api.onrender.com
 
-databases:
+redis:
   - name: focusflow-redis
-    type: redis
     plan: free
