@@ -14,6 +14,8 @@ services:
         sync: false
       - key: OPENAI_API_KEY
         sync: false
+      - key: PYTHONUNBUFFERED
+        value: "1"
       - key: REDIS_URL
         fromService:
           name: focusflow-redis

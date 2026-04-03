@@ -3,7 +3,7 @@ import time
 from typing import Any, Dict
 
 from .embeddings import load_embedding_model
-from .topic_model import load_topic_model
+# from .topic_model import load_topic_model
 from .classifier import load_classifier
 from .drift_detector import load_drift_model
 from .rewriter import load_rewriter
@@ -38,8 +38,8 @@ class ModelCache:
     def _load_model(self, key: str):
         if key == "embedder":
             return load_embedding_model()
-        if key == "topic_model":
-            return load_topic_model()
+        # if key == "topic_model":
+        #    return load_topic_model()
         if key == "classifier":
             return load_classifier()
         if key == "drift_model":
