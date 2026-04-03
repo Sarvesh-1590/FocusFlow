@@ -2,6 +2,7 @@ services:
   # Backend API
   - type: web
     name: focusflow-api
+    plan: free
     runtime: python
     rootDir: backend
     buildCommand: pip install -r requirements.txt
